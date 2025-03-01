@@ -91,34 +91,42 @@ The dataset contains multiple CSV files:
 ### 1️⃣ **Top-Scoring Batsmen per Season**
 
 ```sql
-SELECT P.player_name, M.season_year, SUM(B.runs_scored) AS total_runs
-FROM ball_by_ball B
-JOIN match M ON B.match_id = M.match_id
-JOIN player_match PM ON M.match_id = PM.match_id AND B.striker = PM.player_id
-JOIN player P ON PM.player_id = P.player_id
-GROUP BY P.player_name, M.season_year
-ORDER BY M.season_year, total_runs DESC;
+SELECT 
+p.player_name,
+m.season_year,
+SUM(b.runs_scored) AS total_runs 
+FROM ball_by_ball b
+JOIN match m ON b.match_id = m.match_id   
+JOIN player_match pm ON m.match_id = pm.match_id AND b.striker = pm.player_id     
+JOIN player p ON p.player_id = pm.player_id
+GROUP BY p.player_name, m.season_year
+ORDER BY m.season_year, total_runs DESC
 ```
 
 ### 2️⃣ **Most Economical Bowlers in Powerplay**
 
 ```sql
-SELECT P.player_name, ROUND(SUM(B.runs_scored) / COUNT(B.ball_id), 2) AS economy_rate
-FROM ball_by_ball B
-JOIN player_match PM ON B.match_id = PM.match_id AND B.bowler = PM.player_id
-JOIN player P ON PM.player_id = P.player_id
-WHERE B.over_id < 6
-GROUP BY P.player_name
-ORDER BY economy_rate ASC
-LIMIT 10;
+SELECT 
+p.player_name, 
+AVG(b.runs_scored) AS avg_runs_per_ball, 
+COUNT(b.bowler_wicket) AS total_wickets
+FROM ball_by_ball b
+JOIN player_match pm ON b.match_id = pm.match_id AND b.bowler = pm.player_id
+JOIN player p ON pm.player_id = p.player_id
+WHERE b.over_id <= 6
+GROUP BY p.player_name
+HAVING COUNT(*) >= 1
+ORDER BY avg_runs_per_ball, total_wickets DESC
 ```
 
 ### 3️⃣ **Impact of Toss on Match Outcomes**
 
 ```sql
-SELECT M.toss_winner, M.match_winner, COUNT(*) AS match_count
-FROM match M
-GROUP BY M.toss_winner, M.match_winner;
+SELECT m.match_id, m.toss_winner, m.toss_name, m.match_winner,
+       CASE WHEN m.toss_winner = m.match_winner THEN 'Won' ELSE 'Lost' END AS match_outcome
+FROM match m
+WHERE m.toss_name IS NOT NULL
+ORDER BY m.match_id
 ```
 
 📌 **Future Improvements:**
