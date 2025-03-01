@@ -14,6 +14,8 @@ This project demonstrates the end-to-end data processing workflow for analyzing 
 - **Performing SQL-based analysis**
 - **Generating insights through visualizations**
 
+![alt text](https://github.com/sahilbishnoi26/IPL-Data-Pipeline-Analysis-Apache-Spark/blob/main/img1.png)
+
 ## 📁 Architecture Diagram
 
 The project follows a structured pipeline:
