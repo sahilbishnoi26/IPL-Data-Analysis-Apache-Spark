@@ -6,9 +6,9 @@ A complete IPL data analysis pipeline using Apache Spark, Databricks, and AWS S3
 
 ## 📌 Introduction
 
-This project demonstrates the end-to-end data processing workflow for analyzing IPL (Indian Premier League) cricket data using Apache Spark and Databricks. The workflow includes:
+End-to-end data processing workflow for analyzing IPL (Indian Premier League) cricket data using Apache Spark and Databricks. The workflow includes:
 
-- **Uploading IPL data to Amazon S3** (as object storage)
+- **Uploading IPL data to Amazon S3**
 - **Using Databricks as the compute environment**
 - **Transforming data with Apache Spark**
 - **Performing SQL-based analysis**
@@ -32,8 +32,8 @@ The project follows a structured pipeline:
 
 ### 1️⃣ **Data Ingestion**
 
-- IPL dataset is uploaded to **Amazon S3** (publicly accessible bucket).
-- Data is read into **Apache Spark** using PySpark's `DataFrameReader` API.
+- IPL dataset is uploaded to **Amazon S3**
+- Data is read into **Apache Spark**
 - CSV files are loaded with defined schemas to maintain data consistency.
 
 ### 2️⃣ **Data Processing with PySpark**
@@ -86,33 +86,6 @@ The dataset contains multiple CSV files:
 
 ---
 
-## 🚀 Getting Started
-
-### 1️⃣ **Setup Databricks Environment**
-
-- Sign up for **Databricks Community Edition** (Free-tier available).
-- Create a new **Databricks Cluster**.
-- Create a **Notebook** and attach it to the cluster.
-
-### 2️⃣ **Upload Data to Amazon S3** (Optional)
-
-- If using your own dataset, upload CSV files to an S3 bucket.
-- Ensure the bucket is publicly accessible OR configure **AWS credentials** in Databricks.
-
-### 3️⃣ **Install Required Libraries**
-
-```python
-!pip install matplotlib seaborn pandas
-```
-
-### 4️⃣ **Run the Project Notebook**
-
-- Import the IPL dataset into Spark DataFrames.
-- Perform **data transformations** and **SQL-based analysis**.
-- Generate **visualizations** to derive insights.
-
----
-
 ## 📊 Sample Insights & Queries
 
 ### 1️⃣ **Top-Scoring Batsmen per Season**
@@ -147,12 +120,6 @@ SELECT M.toss_winner, M.match_winner, COUNT(*) AS match_count
 FROM match M
 GROUP BY M.toss_winner, M.match_winner;
 ```
-
----
-
-## 📌 Conclusion
-
-This project demonstrates how to use **Apache Spark** for large-scale data processing, **SQL** for analysis, and **visualization tools** for extracting insights from **IPL cricket data**. The workflow is scalable and can be extended for real-time analytics using **Apache Spark Streaming**.
 
 📌 **Future Improvements:**
 
